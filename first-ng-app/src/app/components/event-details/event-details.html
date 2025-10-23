@@ -10,11 +10,11 @@
             </tr>
             <tr>
                 <th>Event Code</th>
-                <td><span>{{event.eventCode}}</span></td>
+                <td><span>{{event.eventCode|lowercase}}</span></td>
             </tr>
             <tr>
                 <th>Event name</th>
-                <td><span>{{event.eventName}}</span></td>
+                <td><span>{{event.eventName|uppercase}}</span></td>
             </tr>
             <tr>
                 <th>Event description</th>
@@ -22,15 +22,15 @@
             </tr>
             <tr>
                 <th>Event start date</th>
-                <td><span>{{event.startDate}}</span></td>
+                <td><span>{{event.startDate|date: 'dd MMM yyyy'}}</span></td>
             </tr>
             <tr>
                 <th>Event end date</th>
-                <td><span>{{event.endDate}}</span></td>
+                <td><span>{{event.endDate|date:'dd MMM yyyy'}}</span></td>
             </tr>
             <tr>
                 <th>Event Fees</th>
-                <td><span>{{event.fees}}</span></td>
+                <td><span>{{event.fees|currency:'INR'}}</span></td>
             </tr>
             <tr>
                 <th>Event Registration</th>

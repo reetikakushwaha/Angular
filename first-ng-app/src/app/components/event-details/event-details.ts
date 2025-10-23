@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Event } from '../../model/event'
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-event-details',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './event-details.html',
   styleUrl: './event-details.css',
 })
