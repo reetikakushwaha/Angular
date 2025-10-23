@@ -15,6 +15,7 @@
                 <tr>
                     <td><span>{{event.eventCode}}</span></td>
                     <td><span>{{event.eventName}}</span></td>
+
                     <td><span>{{event.startDate}}</span></td>
                     <td><span>{{event.fees}}</span></td>
                     <td>
@@ -28,5 +29,5 @@
         <app-event-details [event]="selectedEvent" [subTitle]="childSubtitle"></app-event-details>
     }
 } @else {
-    <h3>No Events Found</h3>
+    <h3>No Events Found!!</h3>
 }

@@ -1,0 +1,32 @@
+@if (events && events.length > 0) {
+    <h1>{{title}}</h1>
+    <hr>
+    <h2>{{subTitle}}</h2>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                @for (col of columns; track $index) {
+                    <th><span>{{col}}</span></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (event of events; track $index) {
+                <tr>
+                    <td><span>{{event.eventCode}}</span></td>
+                    <td><span>{{event.eventName}}</span></td>
+                    <td><span>{{event.startDate}}</span></td>
+                    <td><span>{{event.fees}}</span></td>
+                    <td>
+                        <button class="btn btn-dark" (click)="onSelectedEvent(event)">Show Details</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if(selectedEvent){
+        <app-event-details [event]="selectedEvent" [subTitle]="childSubtitle"></app-event-details>
+    }
+} @else {
+    <h3>No Events Found</h3>
+}

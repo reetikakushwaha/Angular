@@ -17,10 +17,16 @@
                     <td><span>{{emp.employeeName}}</span></td>
                     <td><span>{{emp.city}}</span></td>
                     <td><span>{{emp.phone}}</span></td>
+                    <td>
+                        <button class="btn btn-dark" (click)="onSelectedEmployee(emp)">Show Details</button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+    @if(selectedEmployee){
+        <app-employee-details [employee]="selectedEmployee" [subTitle]="childSubtitle"></app-employee-details>
+    }
 } @else {
     <h3>No Events Found</h3>
 }
