@@ -33,7 +33,7 @@ export class EventList {
             endDate: new Date(),
             fees: 800,
             seatsFilled: 70,
-            logo: 'images/jq3.png'
+            logo: 'images/images.jpeg'
         },
         {
             eventId: 1002,
