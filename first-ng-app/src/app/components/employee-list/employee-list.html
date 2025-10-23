@@ -2,6 +2,9 @@
     <h1>{{title}}</h1>
     <hr>
     <h2>{{subTitle}}</h2>
+    @if(employeeChildmessage){
+        <p>{{employeeChildmessage}}</p>
+    }
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -25,7 +28,7 @@
         </tbody>
     </table>
     @if(selectedEmployee){
-        <app-employee-details [employee]="selectedEmployee" [subTitle]="childSubtitle"></app-employee-details>
+        <app-employee-details [employee]="selectedEmployee" [subTitle]="childSubtitle" (sendConfirmationMessage)="handleEmployeeChildMessage($event)"></app-employee-details>
     }
 } @else {
     <h3>No Events Found</h3>

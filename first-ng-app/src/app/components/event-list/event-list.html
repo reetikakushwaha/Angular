@@ -2,6 +2,9 @@
     <h1>{{title}}</h1>
     <hr>
     <h2>{{subTitle}}</h2>
+    @if(childmessage){
+        <p>{{childmessage}}</p>
+    }
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -13,11 +16,11 @@
         <tbody>
             @for (event of events; track $index) {
                 <tr>
-                    <td><span>{{event.eventCode}}</span></td>
-                    <td><span>{{event.eventName}}</span></td>
-
-                    <td><span>{{event.startDate}}</span></td>
-                    <td><span>{{event.fees}}</span></td>
+                    <td><span>{{event.eventCode|lowercase}}</span></td>
+                    <td><span>{{event.eventName|uppercase}}</span></td>
+                    
+                    <td><span>{{event.startDate|date:'short'}}</span></td>
+                    <td><span>{{event.fees|currency}}</span></td>
                     <td>
                         <button class="btn btn-dark" (click)="onSelectedEvent(event)">Show Details</button>
                     </td>
@@ -26,8 +29,8 @@
         </tbody>
     </table>
     @if(selectedEvent){
-        <app-event-details [event]="selectedEvent" [subTitle]="childSubtitle"></app-event-details>
+        <app-event-details [event]="selectedEvent" [subTitle]="childSubtitle" (sendConfirmationMessage)="handleChildMessage($event)"></app-event-details>
     }
 } @else {
-    <h3>No Events Found!!</h3>
+    <h3>No Events Found</h3>
 }

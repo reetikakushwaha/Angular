@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Event } from '../../model/event'
 
 @Component({
@@ -11,5 +11,11 @@ export class EventDetails {
   protected title: string = "Details of - ";
   @Input() public event:Event ;
   @Input() public subTitle:string ;
+  @Output() public sendConfirmationMessage: EventEmitter<string> = new EventEmitter<string>();
+  
 
+  protected onEventProcessed():void {
+    //fire an evnt to send data to parent component
+    this.sendConfirmationMessage.emit(`The event ${this.event.eventName} has been processed successfully!`);
+  }
 }

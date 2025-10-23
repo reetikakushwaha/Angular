@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Event } from '../../model/event'
 import { EventDetails } from '../event-details/event-details';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-event-list',
-  imports: [EventDetails],
+  imports: [CommonModule,EventDetails],
   templateUrl: './event-list.html',
   styleUrl: './event-list.css',
 })
@@ -13,9 +14,13 @@ export class EventList {
   protected subTitle: string = "Subtitle - Welcome to Bajaj finserv Event List Component!";
   protected columns:string[] = ["event code", "event name","startdate","fees", "show details"];
   protected selectedEvent:Event ;
+  protected childmessage:string ;
   protected onSelectedEvent(event:Event):void {
     console.log("Event selected: ", event);
     this.selectedEvent = event;
+  }
+  protected handleChildMessage(message:string):void {
+    this.childmessage = message;
   }
   public childSubtitle:string = "Details of selected events!";
     protected events:Event[] = [

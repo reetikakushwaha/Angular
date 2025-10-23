@@ -1,22 +1,27 @@
 import { Component } from '@angular/core';
 import { Employee } from '../../model/employee';
 import { EmployeeDetails } from "../employee-details/employee-details";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [EmployeeDetails],
+  imports: [CommonModule, EmployeeDetails],
   templateUrl: './employee-list.html',
   styleUrl: './employee-list.css',
 })
 export class EmployeeList {
   protected title: string = "Welcome to Bajaj finserv Employee List Component!";
   protected subTitle: string = "Subtitle - Welcome to Bajaj finserv Employee List Component!";
-  protected columns: string[] = ["employee id", "employee name", "city", "phone"];
+  protected columns: string[] = ["employee id", "employee name", "city", "phone", "show details"];
   protected selectedEmployee:Employee ;
+  protected employeeChildmessage:string ;
   protected onSelectedEmployee(employee:Employee):void {
       console.log("Employee selected: ", employee);
       this.selectedEmployee = employee;
-    }
+  }
+  protected handleEmployeeChildMessage(message:string):void {
+    this.employeeChildmessage = message;
+  }
     public childSubtitle:string = "Details of selected events!";
   protected employees: Employee[] = [
     {
