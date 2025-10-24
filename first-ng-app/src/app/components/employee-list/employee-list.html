@@ -1,35 +1,40 @@
-@if (employees && employees.length > 0) {
-    <h1>{{title}}</h1>
-    <hr>
-    <h2>{{subTitle}}</h2>
-    @if(employeeChildmessage){
-        <p>{{employeeChildmessage}}</p>
-    }
-    <table class="table table-hover table-striped">
-        <thead>
-            <tr>
-                @for (col of columns; track $index) {
-                    <th><span>{{col}}</span></th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @for (emp of employees; track $index) {
-                <tr>
-                    <td><span>{{emp.employeeId}}</span></td>
-                    <td><span>{{emp.employeeName}}</span></td>
-                    <td><span>{{emp.city}}</span></td>
-                    <td><span>{{emp.phone}}</span></td>
-                    <td>
-                        <button class="btn btn-dark" (click)="onSelectedEmployee(emp)">Show Details</button>
-                    </td>
-                </tr>
+@if (employee && employee.length > 0) {
+<h1>{{title}}</h1>
+<hr>
+<h2>{{subTitle}}</h2>
+@if(employeeChildmessage){
+<p>{{employeeChildmessage}}</p>
+}
+<div class="container row">
+    <input type="search" id="inputSearch" class="form-control" aria-describedby="searchHelpInline"
+        placeholder="Search Employee by employee name" [(ngModel)]="searchChars" (input)="searchEmployee()">
+</div>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            @for (col of columns; track $index) {
+            <th><span>{{col}}</span></th>
             }
-        </tbody>
-    </table>
-    @if(selectedEmployee){
-        <app-employee-details [employee]="selectedEmployee" [subTitle]="childSubtitle" (sendConfirmationMessage)="handleEmployeeChildMessage($event)"></app-employee-details>
-    }
+        </tr>
+    </thead>
+    <tbody>
+        @for (emp of filteredEmployee; track $index) {
+        <tr>
+            <td><span>{{emp.employeeId}}</span></td>
+            <td><span>{{emp.employeeName}}</span></td>
+            <td><span>{{emp.city}}</span></td>
+            <td><span>{{emp.phone}}</span></td>
+            <td>
+                <button class="btn btn-dark" (click)="onSelectedEmployee(emp)">Show Details</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@if(selectedEmployee){
+<app-employee-details [employee]="selectedEmployee" [subTitle]="childSubtitle"
+    (sendConfirmationMessage)="handleEmployeeChildMessage($event)"></app-employee-details>
+}
 } @else {
-    <h3>No Events Found</h3>
+<h3>No Events Found</h3>
 }

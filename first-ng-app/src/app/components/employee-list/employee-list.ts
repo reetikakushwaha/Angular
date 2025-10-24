@@ -1,29 +1,26 @@
 import { Component } from '@angular/core';
-import { Employee } from '../../model/employee';
-import { EmployeeDetails } from "../employee-details/employee-details";
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Employee } from '../../model/employee';
+import { EmployeeDetails } from '../employee-details/employee-details';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [CommonModule, EmployeeDetails],
+  standalone: true,
+  imports: [CommonModule, FormsModule, EmployeeDetails],
   templateUrl: './employee-list.html',
-  styleUrl: './employee-list.css',
+  styleUrls: ['./employee-list.css'],
 })
 export class EmployeeList {
   protected title: string = "Welcome to Bajaj finserv Employee List Component!";
   protected subTitle: string = "Subtitle - Welcome to Bajaj finserv Employee List Component!";
   protected columns: string[] = ["employee id", "employee name", "city", "phone", "show details"];
-  protected selectedEmployee:Employee ;
-  protected employeeChildmessage:string ;
-  protected onSelectedEmployee(employee:Employee):void {
-      console.log("Employee selected: ", employee);
-      this.selectedEmployee = employee;
-  }
-  protected handleEmployeeChildMessage(message:string):void {
-    this.employeeChildmessage = message;
-  }
-    public childSubtitle:string = "Details of selected events!";
-  protected employees: Employee[] = [
+  protected selectedEmployee: Employee | null = null;
+  protected employeeChildmessage: string = '';
+  protected searchChars: string = '';
+  public childSubtitle: string = "Details of selected events!";
+
+  protected employee: Employee[] = [
     {
       employeeId: 2370,
       employeeName: "Pravinkumar R. D.",
@@ -63,5 +60,26 @@ export class EmployeeList {
       joiningDate: new Date(),
       avatar: "images/noimage.png"
     }
-  ]
+  ];
+
+  protected filteredEmployee: Employee[] = [...this.employee];
+
+  protected searchEmployee(): void {
+    const searchTerm = this.searchChars.trim().toLowerCase();
+    this.filteredEmployee = searchTerm
+      ? this.employee.filter(emp =>
+          emp.employeeName.toLowerCase().includes(searchTerm)
+        )
+      : [...this.employee];
+      console.log(this.filteredEmployee);
+  }
+
+  protected onSelectedEmployee(employee: Employee): void {
+    console.log("Employee selected: ", employee);
+    this.selectedEmployee = employee;
+  }
+
+  protected handleEmployeeChildMessage(message: string): void {
+    this.employeeChildmessage = message;
+  }
 }
