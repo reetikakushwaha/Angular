@@ -25,14 +25,14 @@
             <td><span>{{emp.city}}</span></td>
             <td><span>{{emp.phone}}</span></td>
             <td>
-                <button class="btn btn-dark" (click)="onSelectedEmployee(emp)">Show Details</button>
+                <button class="btn btn-dark" (click)="onSelectedEmployee(emp.employeeId)">Show Details</button>
             </td>
         </tr>
         }
     </tbody>
 </table>
-@if(selectedEmployee){
-<app-employee-details [employee]="selectedEmployee" [subTitle]="childSubtitle"
+@if(selectedEmployeeId){
+<app-employee-details [employeeid]="selectedEmployeeId" [subTitle]="childSubtitle"
     (sendConfirmationMessage)="handleEmployeeChildMessage($event)"></app-employee-details>
 }
 } @else {

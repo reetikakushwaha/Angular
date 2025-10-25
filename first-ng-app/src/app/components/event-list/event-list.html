@@ -1,47 +1,61 @@
+
+
 @if (events && events.length > 0) {
 <h1>{{title}}</h1>
 <hr>
 <h2>{{subTitle}}</h2>
 @if(childmessage){
-<p>{{childmessage}}</p>
+  <p>{{childmessage}}</p>
 }
-<div class="container row">
-    <input type="search" id="inputSearch" class="form-control" aria-describedby="searchHelpInline"
-        placeholder="Search Events by event name" [(ngModel)]="searchChars" (input)="searchEvents()">
+ 
+<div class="container row mb-3">
+  <input type="search" id="inputSearch" class="form-control"
+         placeholder="Search Events by event name" [(ngModel)]="searchChars"
+         (input)="searchEvents()">
 </div>
+ 
 <table class="table table-hover table-striped">
-    <thead>
-        <tr>
-            @for (col of columns; track $index) {
-            <th><span>{{col}}</span></th>
+  <thead>
+    <tr>
+      @for (col of columns; track $index) {
+        <th>
+          <button class="btn btn-link p-0" (click)="sortBy(col)">
+            {{col}}
+            @if(sortColumn === col){
+              <span>{{sortDirection === 'asc' ? '▲' : '▼'}}</span>
             }
-        </tr>
-    </thead>
-    <tbody>
-        @for (event of filteredEvents|paginate:{itemsPerPage: pageSize, currentPage: pageNumber}; track $index) 
-         
-
-        {
-        <tr>
-            <td><span>{{event.eventCode|lowecaseTrunc}}</span></td>
-            <td><span>{{event.eventName|uppercase}}</span></td>
-
-            <td><span>{{event.startDate.toString()|dateGlobalization}}</span></td>
-            <td><span>{{event.fees|currency}}</span></td>
-            <td>
-                <button class="btn btn-dark" (click)="onSelectedEvent(event)">Show Details</button>
-            </td>
-        </tr>
-        }
-    </tbody>
+          </button>
+        </th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (event of filteredEvents | paginate:{itemsPerPage: pageSize, currentPage: pageNumber}; track $index) {
+      <tr>
+        <td><span>{{event.eventCode | lowecaseTrunc}}</span></td>
+        <td><span>{{event.eventName | uppercase}}</span></td>
+        <td><span>{{event.startDate.toString() | dateGlobalization}}</span></td>
+        <td><span>{{event.fees | currency}}</span></td>
+        <td>
+          <button class="btn btn-dark" (click)="onSelectedEvent(event.eventId)">Show Details</button>
+        </td>
+      </tr>
+    }
+  </tbody>
 </table>
-<div class="my-pagination text-center row" >
-    <pagination-controls (pageChange)="pageNumber = $event"></pagination-controls>
+ 
+<div class="my-pagination text-center row">
+  <pagination-controls (pageChange)="pageNumber = $event"></pagination-controls>
 </div>
-@if(selectedEvent){
-<app-event-details [event]="selectedEvent" [subTitle]="childSubtitle"
-    (sendConfirmationMessage)="handleChildMessage($event)"></app-event-details>
+ 
+@if(selectedEventId>0){
+  <app-event-details [eventid]="selectedEventId"
+                     [subTitle]="childSubtitle"
+                     (sendConfirmationMessage)="handleChildMessage($event)">
+  </app-event-details>
 }
 } @else {
 <h3>No Events Found</h3>
 }
+ 
+ 
